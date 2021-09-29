@@ -56,6 +56,18 @@ export const constantRoutes = [
   },
 
   {
+    path: '/servers',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        name: '服务器配置',
+        component: () => import('@/views/servers/index'),
+        meta: { title: '服务器配置', icon: 'el-icon-s-platform' }
+      }
+    ]
+  },
+  {
     path: '/example',
     component: Layout,
     redirect: '/example/table',
@@ -89,6 +101,7 @@ export const constantRoutes = [
       }
     ]
   },
+
 
   {
     path: '/nested',
