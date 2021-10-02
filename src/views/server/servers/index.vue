@@ -86,27 +86,23 @@
       layout="total, sizes, prev, pager, next, jumper"
       :total="total">
     </el-pagination>
-    <el-dialog :title='popWindowTitle + "服务器"' :visible.sync="popWindowVisible" :close-on-click-modal="false">
-      <div slot="footer" class="dialog-footer">
-        <el-button @click="closePopWindow">取 消</el-button>
-        <el-button type="primary" @click="submitPopWindow">确 定</el-button>
-      </div>
-    </el-dialog>
+    <server-form-dialog :uuid="uuid" :visible.sync="popWindowVisible" @closePopWindow="closePopWindow"></server-form-dialog>
   </div>
 </template>
 
 <script>
 import { getList } from '@/api/servers'
-
+import ServerFormDialog from '@/views/server/servers/dialog/serverFormDialog'
 export default {
+  components: { ServerFormDialog },
   inject: ['reload'],
   data() {
     return {
       tableData: [],
       total: 0,
       popWindowVisible: false,
-      popWindowTitle: '',
-      currentPage: 1
+      currentPage: 1,
+      uuid: undefined
     }
   },
   created() {
@@ -126,7 +122,6 @@ export default {
     },
     handleEdit(index, row) {
       this.openPopWindow(row.uuid)
-      console.log(row.uuid)
     },
     handleDelete(index, row) {
       this.tableData.pop()
@@ -141,20 +136,13 @@ export default {
     handleUserClick(row) {
       console.log(row)
     },
-    openPopWindow(id) {
-      if (id) {
-        this.popWindowTitle = '修改'
-      } else {
-        this.popWindowTitle = '增加'
-      }
+    openPopWindow(uuid) {
+      this.uuid = uuid
       this.popWindowVisible = true
     },
     closePopWindow() {
+      this.uuid = ''
       this.popWindowVisible = false
-    },
-    submitPopWindow() {
-      alert('提交成功')
-      this.closePopWindow()
     }
   }
 }
