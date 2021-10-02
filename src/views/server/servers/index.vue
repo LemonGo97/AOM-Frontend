@@ -3,9 +3,6 @@
     <div class="filter-container">
       <el-button icon="el-icon-refresh" @click="refreshContent()">刷新</el-button>
       <el-button type="primary" icon="el-icon-edit" @click="openPopWindow()">增加服务器</el-button>
-      <el-button type="primary" icon="el-icon-edit" @click="drawer = true;drawerMessage = '增加服务器组'">增加服务器组</el-button>
-      <el-button type="primary" icon="el-icon-edit" @click="drawer = true;drawerMessage = '增加用户组'">增加用户组</el-button>
-      <el-button type="primary" icon="el-icon-edit" @click="drawer = true;drawerMessage = '增加用户认证'">增加用户认证</el-button>
     </div>
     <el-table
       :data="tableData"
@@ -40,12 +37,6 @@
       </el-table-column>
       <el-table-column
         align="center"
-        prop="sshPort"
-        width="90"
-        label="SSH Port">
-      </el-table-column>
-      <el-table-column
-        align="center"
         prop="systemType"
         width="120"
         label="系统类型">
@@ -57,18 +48,16 @@
         label="平台">
       </el-table-column>
       <el-table-column
-        align="center"
-        prop="users"
-        label="用户">
-        <template slot-scope="scope">
-          <el-tag
-            v-for="(user,index) in scope.row.users"
-            :key="index"
-            disable-transitions
-            style="margin: 0 2px 0 2px"
-            @click="handleUserClick(user)"
-          >{{ user }}</el-tag>
-        </template>
+        prop="createTime"
+        label="创建时间">
+      </el-table-column>
+      <el-table-column
+        prop="updateTime"
+        label="修改时间">
+      </el-table-column>
+      <el-table-column
+        prop="operator"
+        label="操作人">
       </el-table-column>
       <el-table-column
         align="center"
@@ -97,12 +86,6 @@
       layout="total, sizes, prev, pager, next, jumper"
       :total="total">
     </el-pagination>
-    <el-drawer
-      title="添加"
-      :visible.sync="drawer"
-      :direction="direction">
-      <span>{{ drawerMessage }}</span>
-    </el-drawer>
     <el-dialog :title='popWindowTitle + "服务器"' :visible.sync="popWindowVisible" :close-on-click-modal="false">
       <div slot="footer" class="dialog-footer">
         <el-button @click="closePopWindow">取 消</el-button>
@@ -123,9 +106,6 @@ export default {
       total: 0,
       popWindowVisible: false,
       popWindowTitle: '',
-      drawer: false,
-      direction: 'rtl',
-      drawerMessage: '',
       currentPage: 1
     }
   },

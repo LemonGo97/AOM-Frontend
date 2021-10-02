@@ -2,10 +2,7 @@
   <div class="app-container">
     <div class="filter-container">
       <el-button icon="el-icon-refresh" @click="refreshContent()">刷新</el-button>
-      <el-button type="primary" icon="el-icon-edit" @click="drawer = true;drawerMessage = '增加服务器'">增加服务器</el-button>
-      <el-button type="primary" icon="el-icon-edit" @click="drawer = true;drawerMessage = '增加服务器组'">增加服务器组</el-button>
       <el-button type="primary" icon="el-icon-edit" @click="drawer = true;drawerMessage = '增加用户组'">增加用户组</el-button>
-      <el-button type="primary" icon="el-icon-edit" @click="drawer = true;drawerMessage = '增加用户认证'">增加用户认证</el-button>
     </div>
     <el-table
       :data="tableData"
@@ -17,49 +14,29 @@
       </el-table-column>
       <el-table-column
         prop="uuid"
-        label="服务器ID"
+        label="用户组ID"
         width="210">
       </el-table-column>
       <el-table-column
-        prop="serverName"
-        label="服务器名"
+        prop="username"
+        label="用户组名"
         width="180">
       </el-table-column>
       <el-table-column
-        prop="ipAddress"
-        label="IP 地址">
+        prop="description"
+        label="描述">
       </el-table-column>
       <el-table-column
-        prop="group"
-        label="所属服务器组">
+        prop="createTime"
+        label="创建时间">
       </el-table-column>
       <el-table-column
-        prop="sshPort"
-        width="90"
-        label="SSH Port">
+        prop="updateTime"
+        label="修改时间">
       </el-table-column>
       <el-table-column
-        prop="systemType"
-        width="120"
-        label="系统类型">
-      </el-table-column>
-      <el-table-column
-        prop="platform"
-        width="90"
-        label="平台">
-      </el-table-column>
-      <el-table-column
-        prop="users"
-        label="用户">
-        <template slot-scope="scope">
-          <el-tag
-            v-for="(user,index) in scope.row.users"
-            :key="index"
-            disable-transitions
-            style="margin: 0 2px 0 2px"
-            @click="handleUserClick(user)"
-          >{{ user }}</el-tag>
-        </template>
+        prop="operator"
+        label="操作人">
       </el-table-column>
       <el-table-column
         width="150"
