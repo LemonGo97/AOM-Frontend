@@ -86,7 +86,7 @@
       layout="total, sizes, prev, pager, next, jumper"
       :total="total">
     </el-pagination>
-    <server-form-dialog :uuid="uuid" :visible.sync="popWindowVisible" @closePopWindow="closePopWindow"></server-form-dialog>
+    <server-form-dialog v-if="popWindowVisible" :uuid="uuid" :visible.sync="popWindowVisible" @closePopWindow="closePopWindow"></server-form-dialog>
   </div>
 </template>
 
@@ -132,9 +132,6 @@ export default {
     },
     handleCurrentChange(val) {
       console.log(`当前页: ${val}`)
-    },
-    handleUserClick(row) {
-      console.log(row)
     },
     openPopWindow(uuid) {
       this.uuid = uuid

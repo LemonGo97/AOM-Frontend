@@ -85,6 +85,9 @@ export default {
       default: undefined
     }
   },
+  created() {
+    console.log('弹窗 created')
+  },
   data() {
     return {
       formLabelWidth: '100px',
@@ -96,9 +99,6 @@ export default {
   },
   methods: {
     close() {
-      this.server = {}
-      this.formSshActive = false
-      this.formTelnetActive = false
       this.$emit('closePopWindow')
     },
     submitPopWindow() {
