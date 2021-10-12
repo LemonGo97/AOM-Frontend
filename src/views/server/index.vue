@@ -60,6 +60,7 @@
         label="操作">
         <template slot-scope="scope">
           <el-button
+            style="margin-right: 3px"
             size="mini"
             @click="handleEdit(scope.$index, scope.row)">编辑
           </el-button>
@@ -69,6 +70,7 @@
             @onConfirm="handleDelete(scope.$index, scope.row)"
           >
             <el-button
+              style="margin-left: 3px"
               size="mini"
               type="danger"
               slot="reference">
