@@ -26,10 +26,10 @@
         </el-select>
       </el-form-item>
       <el-form-item label="用户名" :label-width="formLabelWidth">
-        <el-input v-model="server.user.username" autocomplete="off" style="width: 100%"></el-input>
+        <el-input v-model="server.username" autocomplete="off" style="width: 100%"></el-input>
       </el-form-item>
       <el-form-item label="密码" :label-width="formLabelWidth">
-        <el-input v-model="server.user.password" autocomplete="off" style="width: 100%"></el-input>
+        <el-input v-model="server.password" autocomplete="off" style="width: 100%"></el-input>
       </el-form-item>
       <hr/>
       <el-form-item label="SSH" :label-width="formLabelWidth">
@@ -82,7 +82,6 @@ export default {
       formLabelWidth: '100px',
       popWindowTitle: '',
       server: {
-        user: {},
         sshEnable: false,
         telnetEnable: false
       }

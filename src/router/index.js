@@ -67,27 +67,9 @@ export const constantRoutes = [
     children: [
       {
         path: 'servers',
-        component: () => import('@/views/server/servers/index'),
+        component: () => import('@/views/server'),
         name: '服务器管理',
         meta: { title: '服务器管理', icon: 'el-icon-monitor' }
-      },
-      {
-        path: 'serverGroups',
-        name: '服务器组管理',
-        component: () => import('@/views/server/serverGroups/index'),
-        meta: { title: '服务器组管理', icon: 'el-icon-receiving' }
-      },
-      {
-        path: 'userGroups',
-        name: '用户组管理',
-        component: () => import('@/views/server/userGroups/index'),
-        meta: { title: '用户组管理', icon: 'el-icon-s-custom' }
-      },
-      {
-        path: 'authenticate',
-        name: '认证管理',
-        component: () => import('@/views/server/authenticate/index'),
-        meta: { title: '认证管理', icon: 'el-icon-s-check' }
       }
     ]
   },

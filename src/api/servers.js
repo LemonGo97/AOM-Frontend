@@ -8,11 +8,10 @@ export function getList(params) {
   })
 }
 
-export function getOne(id, params) {
+export function getOne(id) {
   return request({
     url: '/server/' + id,
-    method: 'get',
-    params
+    method: 'get'
   })
 }
 
@@ -21,5 +20,12 @@ export function save(data) {
     url: '/server',
     method: 'post',
     data
+  })
+}
+
+export function remove(id) {
+  return request({
+    url: '/server/' + id,
+    method: 'delete'
   })
 }
