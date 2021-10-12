@@ -29,3 +29,11 @@ export function remove(id) {
     method: 'delete'
   })
 }
+
+export function modify(data) {
+  return request({
+    url: '/server',
+    method: 'put',
+    data
+  })
+}

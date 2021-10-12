@@ -61,7 +61,7 @@
 </template>
 
 <script>
-import { save } from '@/api/servers'
+import { getOne, save, modify } from '@/api/servers'
 
 export default {
   name: 'ServerFormDialog',
@@ -75,7 +75,11 @@ export default {
     }
   },
   created() {
-    console.log('弹窗 created')
+    if (this.uuid) {
+      getOne(this.uuid).then(response => {
+        this.server = response.data
+      })
+    }
   },
   data() {
     return {
@@ -92,9 +96,15 @@ export default {
       this.$emit('closePopWindow')
     },
     submitPopWindow() {
-      save(this.server).then(response => {
-        this.close()
-      })
+      if (this.uuid) {
+        modify(this.server).then(response => {
+          this.close()
+        })
+      } else {
+        save(this.server).then(response => {
+          this.close()
+        })
+      }
     }
   }
 }
