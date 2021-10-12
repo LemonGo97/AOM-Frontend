@@ -2,7 +2,7 @@
   <el-dialog :title='(uuid?"修改":"增加") + "服务器配置"' :visible.sync="visible" :close-on-click-modal="false" :before-close="close">
     <el-form :model="server">
       <el-form-item label="服务器名称" :label-width="formLabelWidth">
-        <el-input v-model="server.serverName" autocomplete="off" style="width: 100%"></el-input>
+        <el-input v-model="server.name" autocomplete="off" style="width: 100%"></el-input>
       </el-form-item>
       <el-form-item label="IP 地址" :label-width="formLabelWidth">
         <el-input v-model="server.ipAddress" autocomplete="off" style="width: 100%"></el-input>
@@ -25,46 +25,33 @@
           <el-option label="GBK" value="GBK"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="所属服务器组" :label-width="formLabelWidth">
-        <el-select v-model="server.group" placeholder="请选择归属的服务器组" style="width: 100%">
-          <el-option label="group1" value="group1"></el-option>
-          <el-option label="group2" value="group2"></el-option>
-        </el-select>
+      <el-form-item label="用户名" :label-width="formLabelWidth">
+        <el-input v-model="server.user.username" autocomplete="off" style="width: 100%"></el-input>
+      </el-form-item>
+      <el-form-item label="密码" :label-width="formLabelWidth">
+        <el-input v-model="server.user.password" autocomplete="off" style="width: 100%"></el-input>
       </el-form-item>
       <hr/>
       <el-form-item label="SSH" :label-width="formLabelWidth">
         <el-switch
-          v-model="formSshActive"
+          v-model="server.sshEnable"
           active-color="#13ce66"
           inactive-color="#ff4949">
         </el-switch>
       </el-form-item>
-      <el-form-item v-show="formSshActive" label="SSH 端口" :label-width="formLabelWidth">
+      <el-form-item v-show="server.sshEnable" label="SSH 端口" :label-width="formLabelWidth">
         <el-input v-model="server.sshPort" autocomplete="off" style="width: 100%"></el-input>
-      </el-form-item>
-      <el-form-item v-show="formSshActive" label="SSH 用户名" :label-width="formLabelWidth">
-        <el-input v-model="server.sshUserName" autocomplete="off" style="width: 100%"></el-input>
-      </el-form-item>
-      <el-form-item v-show="formSshActive" label="SSH 密码" :label-width="formLabelWidth">
-        <el-input v-model="server.sshPassword" autocomplete="off" style="width: 100%"></el-input>
       </el-form-item>
       <el-form-item label="Telnet" :label-width="formLabelWidth">
         <el-switch
-          v-model="formTelnetActive"
+          v-model="server.telnetEnable"
           active-color="#13ce66"
           inactive-color="#ff4949">
         </el-switch>
       </el-form-item>
-      <el-form-item v-show="formTelnetActive" label="Telnet 端口" :label-width="formLabelWidth">
+      <el-form-item v-show="server.telnetEnable" label="Telnet 端口" :label-width="formLabelWidth">
         <el-input v-model="server.telnetPort" autocomplete="off" style="width: 100%"></el-input>
       </el-form-item>
-      <el-form-item v-show="formTelnetActive" label="Telnet 用户名" :label-width="formLabelWidth">
-        <el-input v-model="server.telnetUserName" autocomplete="off" style="width: 100%"></el-input>
-      </el-form-item>
-      <el-form-item v-show="formTelnetActive" label="Telnet 密码" :label-width="formLabelWidth">
-        <el-input v-model="server.telnetPassword" autocomplete="off" style="width: 100%"></el-input>
-      </el-form-item>
-
     </el-form>
     <div slot="footer" class="dialog-footer">
       <el-button @click="close">取 消</el-button>
@@ -74,6 +61,8 @@
 </template>
 
 <script>
+import { save } from '@/api/servers'
+
 export default {
   name: 'ServerFormDialog',
   props: {
@@ -92,9 +81,11 @@ export default {
     return {
       formLabelWidth: '100px',
       popWindowTitle: '',
-      server: {},
-      formSshActive: false,
-      formTelnetActive: false
+      server: {
+        user: {},
+        sshEnable: false,
+        telnetEnable: false
+      }
     }
   },
   methods: {
@@ -102,8 +93,9 @@ export default {
       this.$emit('closePopWindow')
     },
     submitPopWindow() {
-      alert('提交成功')
-      this.close()
+      save(this.server).then(response => {
+        this.close()
+      })
     }
   }
 }
