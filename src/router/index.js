@@ -54,7 +54,6 @@ export const constantRoutes = [
       meta: { title: '仪表盘', icon: 'dashboard' }
     }]
   },
-
   {
     path: '/server',
     component: Layout,
@@ -62,14 +61,110 @@ export const constantRoutes = [
     name: '服务器',
     meta: {
       title: '服务器',
-      icon: 'el-icon-s-platform'
+      icon: 'server'
     },
     children: [
       {
         path: 'servers',
         component: () => import('@/views/server'),
         name: '服务器管理',
-        meta: { title: '服务器管理', icon: 'el-icon-monitor' }
+        meta: { title: '服务器管理', icon: 'server' }
+      }
+    ]
+  },
+  {
+    path: '/application',
+    component: Layout,
+    redirect: 'noRedirect',
+    name: '应用管理',
+    meta: {
+      title: '应用管理',
+      icon: 'application'
+    },
+    children: [
+      {
+        path: 'mysql',
+        component: () => import('@/views/application/mysql'),
+        name: 'MySQL',
+        meta: { title: 'MySQL', icon: 'mysql' }
+      },
+      {
+        path: 'mongodb',
+        component: () => import('@/views/application/mongodb'),
+        name: 'MongoDB',
+        meta: { title: 'MongoDB', icon: 'mongodb' }
+      },
+      {
+        path: 'postgresql',
+        component: () => import('@/views/application/postgresql'),
+        name: 'PostgreSQL',
+        meta: { title: 'PostgreSQL', icon: 'postgresql' }
+      },
+      {
+        path: 'clickhouse',
+        component: () => import('@/views/application/clickhouse'),
+        name: 'ClickHouse',
+        meta: { title: 'ClickHouse', icon: 'clickhouse' }
+      },
+      {
+        path: 'redis',
+        component: () => import('@/views/application/redis'),
+        name: 'Redis',
+        meta: { title: 'Redis', icon: 'redis' }
+      },
+      {
+        path: 'elasticsearch',
+        component: () => import('@/views/application/elasticsearch'),
+        name: 'ElasticSearch',
+        meta: { title: 'ElasticSearch', icon: 'elasticsearch' }
+      },
+      {
+        path: 'zookeeper',
+        component: () => import('@/views/application/zookeeper'),
+        name: 'Zookeeper',
+        meta: { title: 'Zookeeper', icon: 'zookeeper' }
+      },
+      {
+        path: 'kafka',
+        component: () => import('@/views/application/kafka'),
+        name: 'Kafka',
+        meta: { title: 'Kafka', icon: 'kafka' }
+      },
+      {
+        path: 'rocketmq',
+        component: () => import('@/views/application/rocketmq'),
+        name: 'RocketMQ',
+        meta: { title: 'RocketMQ', icon: 'rocketmq' }
+      },
+      {
+        path: 'rabbitmq',
+        component: () => import('@/views/application/rabbitmq'),
+        name: 'RabbitMQ',
+        meta: { title: 'RabbitMQ', icon: 'rabbitmq' }
+      },
+      {
+        path: 'nginx',
+        component: () => import('@/views/application/nginx'),
+        name: 'Nginx',
+        meta: { title: 'Nginx', icon: 'nginx' }
+      }
+    ]
+  },
+  {
+    path: '/server',
+    component: Layout,
+    redirect: 'noRedirect',
+    name: '任务管理',
+    meta: {
+      title: '任务管理',
+      icon: 'server'
+    },
+    children: [
+      {
+        path: 'servers',
+        component: () => import('@/views/server'),
+        name: '任务管理',
+        meta: { title: '任务管理', icon: 'task' }
       }
     ]
   },
