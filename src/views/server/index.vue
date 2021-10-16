@@ -56,7 +56,7 @@
       </el-table-column>
       <el-table-column
         align="center"
-        width="150"
+        width="220"
         label="操作">
         <template slot-scope="scope">
           <el-button
@@ -66,17 +66,17 @@
           </el-button>
 
           <el-button
-            style="margin-right: 3px"
+            style="margin-left: 3px;margin-right: 3px"
             size="mini"
             @click="handleEdit(scope.$index, scope.row)">编辑
           </el-button>
 
           <el-popconfirm
+            style="margin-left: 3px"
             title="确定删除此服务器？"
             @onConfirm="handleDelete(scope.$index, scope.row)"
           >
             <el-button
-              style="margin-left: 3px"
               size="mini"
               type="danger"
               slot="reference">
@@ -104,9 +104,9 @@
       center>
       <span>请选择连接方式：</span>
       <span slot="footer" class="dialog-footer">
-        <el-button @click="handleConnectDialogVisible(currentRow, 'ssh')">SSH</el-button>
-        <el-button @click="handleConnectDialogVisible(currentRow, 'telnet')">Telnet</el-button>
-        <el-button @click="handleConnectDialogVisible(currentRow, 'sftp')">Sftp</el-button>
+        <el-button :disabled="currentRow.sshEnable" @click="handleConnectDialogVisible(currentRow, 'ssh')">SSH</el-button>
+        <el-button :disabled="currentRow.telnetEnable" @click="handleConnectDialogVisible(currentRow, 'telnet')">Telnet</el-button>
+        <el-button :disabled="currentRow.sshEnable" @click="handleConnectDialogVisible(currentRow, 'sftp')">Sftp</el-button>
       </span>
     </el-dialog>
     <server-form-dialog v-if="popWindowVisible" :uuid="uuid" :visible.sync="popWindowVisible" @closePopWindow="closePopWindow"></server-form-dialog>
@@ -147,6 +147,13 @@ export default {
     },
     openConnectDialogVisible(row) {
       console.log('open', row)
+      if (!(row.sshEnable || row.telnetEnable)) {
+        this.$notify.error({
+          title: '错误',
+          message: '未开启相关的连接方式！'
+        })
+        return
+      }
       this.currentRow = row
       this.connectDialogVisible = true
     },
