@@ -65,7 +65,7 @@ export const constantRoutes = [
     },
     children: [
       {
-        path: 'servers',
+        path: '',
         component: () => import('@/views/server'),
         name: '服务器管理',
         meta: { title: '服务器管理', icon: 'server' }
@@ -84,84 +84,84 @@ export const constantRoutes = [
     children: [
       {
         path: 'mysql',
-        component: () => import('@/views/application/mysql'),
+        component: () => import('@/views/application'),
         name: 'MySQL',
         meta: { title: 'MySQL', icon: 'mysql' }
       },
       {
         path: 'mongodb',
-        component: () => import('@/views/application/mongodb'),
+        component: () => import('@/views/application'),
         name: 'MongoDB',
         meta: { title: 'MongoDB', icon: 'mongodb' }
       },
       {
         path: 'postgresql',
-        component: () => import('@/views/application/postgresql'),
+        component: () => import('@/views/application'),
         name: 'PostgreSQL',
         meta: { title: 'PostgreSQL', icon: 'postgresql' }
       },
       {
         path: 'clickhouse',
-        component: () => import('@/views/application/clickhouse'),
+        component: () => import('@/views/application'),
         name: 'ClickHouse',
         meta: { title: 'ClickHouse', icon: 'clickhouse' }
       },
       {
         path: 'redis',
-        component: () => import('@/views/application/redis'),
+        component: () => import('@/views/application'),
         name: 'Redis',
         meta: { title: 'Redis', icon: 'redis' }
       },
       {
         path: 'elasticsearch',
-        component: () => import('@/views/application/elasticsearch'),
-        name: 'ElasticSearch',
-        meta: { title: 'ElasticSearch', icon: 'elasticsearch' }
+        component: () => import('@/views/application'),
+        name: 'Elasticsearch',
+        meta: { title: 'Elasticsearch', icon: 'elasticsearch' }
       },
       {
         path: 'zookeeper',
-        component: () => import('@/views/application/zookeeper'),
+        component: () => import('@/views/application'),
         name: 'Zookeeper',
         meta: { title: 'Zookeeper', icon: 'zookeeper' }
       },
       {
         path: 'kafka',
-        component: () => import('@/views/application/kafka'),
+        component: () => import('@/views/application'),
         name: 'Kafka',
         meta: { title: 'Kafka', icon: 'kafka' }
       },
       {
         path: 'rocketmq',
-        component: () => import('@/views/application/rocketmq'),
+        component: () => import('@/views/application'),
         name: 'RocketMQ',
         meta: { title: 'RocketMQ', icon: 'rocketmq' }
       },
       {
         path: 'rabbitmq',
-        component: () => import('@/views/application/rabbitmq'),
+        component: () => import('@/views/application'),
         name: 'RabbitMQ',
         meta: { title: 'RabbitMQ', icon: 'rabbitmq' }
       },
       {
         path: 'nginx',
-        component: () => import('@/views/application/nginx'),
+        component: () => import('@/views/application'),
         name: 'Nginx',
         meta: { title: 'Nginx', icon: 'nginx' }
       }
     ]
   },
   {
-    path: '/server',
+    path: '/task',
     component: Layout,
     redirect: 'noRedirect',
     name: '任务管理',
     meta: {
       title: '任务管理',
-      icon: 'server'
+      icon: 'task'
     },
     children: [
       {
-        path: 'servers',
+        path: '',
         component: () => import('@/views/server'),
         name: '任务管理',
         meta: { title: '任务管理', icon: 'task' }

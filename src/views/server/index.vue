@@ -62,6 +62,12 @@
           <el-button
             style="margin-right: 3px"
             size="mini"
+            @click="openConnectDialogVisible(scope.row)">连接
+          </el-button>
+
+          <el-button
+            style="margin-right: 3px"
+            size="mini"
             @click="handleEdit(scope.$index, scope.row)">编辑
           </el-button>
 
@@ -90,6 +96,19 @@
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange">
     </el-pagination>
+    <el-dialog
+      :title='"连接到服务器: " + currentRow.ipAddress'
+      :visible.sync="connectDialogVisible"
+      @close="closeConnectDialogVisible(uuid)"
+      width="30%"
+      center>
+      <span>请选择连接方式：</span>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="handleConnectDialogVisible(currentRow, 'ssh')">SSH</el-button>
+        <el-button @click="handleConnectDialogVisible(currentRow, 'telnet')">Telnet</el-button>
+        <el-button @click="handleConnectDialogVisible(currentRow, 'sftp')">Sftp</el-button>
+      </span>
+    </el-dialog>
     <server-form-dialog v-if="popWindowVisible" :uuid="uuid" :visible.sync="popWindowVisible" @closePopWindow="closePopWindow"></server-form-dialog>
   </div>
 </template>
@@ -105,8 +124,10 @@ export default {
       tableData: [],
       total: 0,
       popWindowVisible: false,
+      connectDialogVisible: false,
       currentPage: 1,
-      uuid: undefined
+      uuid: undefined,
+      currentRow: {}
     }
   },
   created() {
@@ -123,6 +144,20 @@ export default {
         this.total = response.data.totalElements
         this.listLoading = false
       })
+    },
+    openConnectDialogVisible(row) {
+      console.log('open', row)
+      this.currentRow = row
+      this.connectDialogVisible = true
+    },
+    handleConnectDialogVisible(row, type) {
+      console.log('handle', type, row)
+      this.closeConnectDialogVisible(row)
+    },
+    closeConnectDialogVisible(row) {
+      this.currentRow = ''
+      console.log('close', row)
+      this.connectDialogVisible = false
     },
     handleEdit(index, row) {
       this.openPopWindow(row.uuid)
