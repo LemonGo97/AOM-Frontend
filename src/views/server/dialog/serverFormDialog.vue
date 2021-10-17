@@ -8,15 +8,23 @@
         <el-input v-model="server.ipAddress" autocomplete="off" style="width: 100%"></el-input>
       </el-form-item>
       <el-form-item label="系统类型" :label-width="formLabelWidth">
-        <el-select v-model="server.systemType" placeholder="请选择系统类型" style="width: 100%">
-          <el-option label="CentOS" value="CentOS"></el-option>
-          <el-option label="Ubuntu" value="Ubuntu"></el-option>
+        <el-select v-model="server.systemType" @change="systemTypeChange(server.systemType)" placeholder="请选择系统类型" style="width: 100%">
+          <el-option
+            v-for="item in systemType"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value">
+          </el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="平台" :label-width="formLabelWidth">
         <el-select v-model="server.platform" placeholder="请选择平台" style="width: 100%">
-          <el-option label="ARM" value="ARM"></el-option>
-          <el-option label="x86" value="x86"></el-option>
+          <el-option
+            v-for="item in platform"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value">
+          </el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="字符集" :label-width="formLabelWidth">
@@ -61,7 +69,7 @@
 </template>
 
 <script>
-import { getOne, save, modify } from '@/api/servers'
+import { getOne, save, modify, getSystemType } from '@/api/servers'
 
 export default {
   name: 'ServerFormDialog',
@@ -75,6 +83,9 @@ export default {
     }
   },
   created() {
+    getSystemType().then(response => {
+      this.systemType = response.data
+    })
     if (this.uuid) {
       getOne(this.uuid).then(response => {
         this.server = response.data
@@ -88,12 +99,19 @@ export default {
       server: {
         sshEnable: false,
         telnetEnable: false
-      }
+      },
+      systemType: [],
+      platform: []
     }
   },
   methods: {
     close() {
       this.$emit('closePopWindow')
+    },
+    systemTypeChange(systemType) {
+      this.platform = this.systemType.filter(type => {
+        return type.value === systemType
+      })[0].platform
     },
     submitPopWindow() {
       if (this.uuid) {

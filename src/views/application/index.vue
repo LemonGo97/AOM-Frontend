@@ -14,28 +14,27 @@
       style="width: 100%;margin-top: 10px">
       <el-table-column
         align="center"
-        prop="name"
+        prop="packageName"
         label="安装包名">
       </el-table-column>
       <el-table-column
         align="center"
-        prop="ipAddress"
+        prop="version"
         label="版本号">
       </el-table-column>
       <el-table-column
         align="center"
         prop="systemType"
-        width="120"
         label="系统类型">
       </el-table-column>
       <el-table-column
         align="center"
         prop="platform"
-        width="90"
         label="平台">
       </el-table-column>
       <el-table-column
-        prop="createTime"
+        align="center"
+        prop="updateTime"
         label="软件更新时间"
         width="160"
       >
@@ -47,7 +46,7 @@
           <el-button
             style="margin-right: 3px"
             size="mini"
-            @click="handleEdit(scope.$index, scope.row)">更新日志
+            @click="showLog(scope.row)">更新日志
           </el-button>
           <el-button
             style="margin-right: 3px"
@@ -77,8 +76,8 @@
 </template>
 
 <script>
-import { getList, remove } from '@/api/servers'
-import ServerFormDialog from '@/views/server/dialog/serverFormDialog'
+import { getList } from '@/api/application'
+import ServerFormDialog from '@/views/application/dialog/serverFormDialog'
 export default {
   components: { ServerFormDialog },
   inject: ['reload'],
@@ -165,13 +164,20 @@ export default {
         this.listLoading = false
       })
     },
+    showLog(row) {
+      this.$alert(row.changeLog, '更新日志', {
+        confirmButtonText: '关闭',
+        confirmButtonClass: 'el-button--danger'
+      })
+    },
+    download(uuid) {
+      alert('调用了下载方法：' + uuid)
+    },
     handleEdit(index, row) {
       this.openPopWindow(row.uuid)
     },
     handleDelete(index, row) {
-      remove(row.uuid).then(response => {
-        this.refreshContent()
-      })
+
     },
     handleSizeChange(val) {
       console.log(`每页 ${val} 条`)

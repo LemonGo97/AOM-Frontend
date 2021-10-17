@@ -37,3 +37,11 @@ export function modify(data) {
     data
   })
 }
+
+export function getSystemType(params) {
+  return request({
+    url: '/server/system-type',
+    method: 'get',
+    params
+  })
+}
