@@ -83,6 +83,12 @@ export const constantRoutes = [
     },
     children: [
       {
+        path: 'redis',
+        component: () => import('@/views/application'),
+        name: 'Redis',
+        meta: { title: 'Redis', icon: 'redis' }
+      },
+      {
         path: 'mysql',
         component: () => import('@/views/application'),
         name: 'MySQL',
@@ -105,12 +111,6 @@ export const constantRoutes = [
         component: () => import('@/views/application'),
         name: 'ClickHouse',
         meta: { title: 'ClickHouse', icon: 'clickhouse' }
-      },
-      {
-        path: 'redis',
-        component: () => import('@/views/application'),
-        name: 'Redis',
-        meta: { title: 'Redis', icon: 'redis' }
       },
       {
         path: 'elasticsearch',

@@ -3,6 +3,7 @@
     <div class="jumbotron">
       <h1><svg-icon :icon-class="info[currentDB].icon" />&nbsp;&nbsp;{{ info[currentDB].title }}</h1>
       <p>{{ info[currentDB].description }}</p>
+      <p v-if="info[currentDB].downloadUrl">下载地址：<a :href="info[currentDB].downloadUrl" target="_blank">{{ info[currentDB].downloadUrl }}</a></p>
     </div>
     <div class="filter-container" style="margin-top: 10px">
       <el-button icon="el-icon-refresh" @click="refreshContent()">刷新</el-button>
@@ -46,6 +47,7 @@
           <el-button
             style="margin-right: 3px"
             size="mini"
+            :disabled="!scope.row.changeLog"
             @click="showLog(scope.row)">更新日志
           </el-button>
           <el-button
@@ -66,7 +68,7 @@
       layout="total, sizes, prev, pager, next, jumper"
       :current-page="currentPage"
       :page-sizes="[20, 50, 100, 200, 300, 400]"
-      :page-size="20"
+      :page-size="pageSize"
       :total="total"
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange">
@@ -107,6 +109,7 @@ export default {
         Redis: {
           icon: 'redis',
           title: 'Redis',
+          downloadUrl: 'https://download.redis.io/releases/',
           description: 'Redis 是一个开源（BSD许可）的，内存中的数据结构存储系统，它可以用作数据库、缓存和消息中间件。'
         },
         Elasticsearch: {
@@ -144,6 +147,7 @@ export default {
       total: 0,
       popWindowVisible: false,
       currentPage: 1,
+      pageSize: 20,
       uuid: undefined,
       currentDB: undefined
     }
@@ -158,7 +162,7 @@ export default {
     },
     fetchData() {
       this.listLoading = true
-      getList().then(response => {
+      getList({ type: this.info[this.currentDB].title, pageSize: this.pageSize, pageNumber: this.currentPage }).then(response => {
         this.tableData = response.data.content
         this.total = response.data.totalElements
         this.listLoading = false
@@ -180,10 +184,14 @@ export default {
 
     },
     handleSizeChange(val) {
-      console.log(`每页 ${val} 条`)
+      this.pageSize = val
+      console.log(`每页 ${this.pageSize} 条`)
+      this.fetchData()
     },
     handleCurrentChange(val) {
-      console.log(`当前页: ${val}`)
+      this.currentPage = val
+      console.log(`当前页: ${this.currentPage}`)
+      this.fetchData()
     },
     openPopWindow(uuid) {
       this.uuid = uuid
@@ -223,6 +231,12 @@ export default {
 .jumbotron > h1 {
   font-size: 4em;
 }
+</style>
 
+<style>
+  .el-message-box {
+    white-space: pre-line;
+    width: 800px;
+  }
 </style>
 
