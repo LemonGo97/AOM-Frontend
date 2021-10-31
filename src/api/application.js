@@ -1,8 +1,8 @@
 import request from '@/utils/request'
 
-export function getList(params) {
+export function getList(type, params) {
   return request({
-    url: '/applications/version',
+    url: '/applications/' + type + '/version',
     method: 'get',
     params
   })

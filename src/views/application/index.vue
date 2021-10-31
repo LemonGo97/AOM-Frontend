@@ -162,7 +162,7 @@ export default {
     },
     fetchData() {
       this.listLoading = true
-      getList({ type: this.info[this.currentDB].title, size: this.pageSize, current: this.currentPage }).then(response => {
+      getList(this.info[this.currentDB].title, { size: this.pageSize, current: this.currentPage }).then(response => {
         this.tableData = response.data.records
         this.total = response.data.total
         this.listLoading = false
