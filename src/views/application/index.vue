@@ -162,9 +162,9 @@ export default {
     },
     fetchData() {
       this.listLoading = true
-      getList({ type: this.info[this.currentDB].title, pageSize: this.pageSize, pageNumber: this.currentPage }).then(response => {
-        this.tableData = response.data.content
-        this.total = response.data.totalElements
+      getList({ type: this.info[this.currentDB].title, size: this.pageSize, current: this.currentPage }).then(response => {
+        this.tableData = response.data.records
+        this.total = response.data.total
         this.listLoading = false
       })
     },
