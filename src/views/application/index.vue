@@ -44,12 +44,12 @@
         align="center"
         label="操作">
         <template slot-scope="scope">
-          <el-button
-            style="margin-right: 3px"
-            size="mini"
-            :disabled="!scope.row.changeLog"
-            @click="showLog(scope.row)">更新日志
-          </el-button>
+<!--          <el-button-->
+<!--            style="margin-right: 3px"-->
+<!--            size="mini"-->
+<!--            :disabled="!scope.row.changeLog"-->
+<!--            @click="showLog(scope.row)">更新日志-->
+<!--          </el-button>-->
           <el-button
             style="margin-right: 3px"
             size="mini"
