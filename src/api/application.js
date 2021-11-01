@@ -7,3 +7,17 @@ export function getList(type, params) {
     params
   })
 }
+
+export function getInfo(type) {
+  return request({
+    url: '/applications/' + type + '/info',
+    method: 'get'
+  })
+}
+
+export function getChangeLog(type) {
+  return request({
+    url: '/applications/' + type + '/changeLog',
+    method: 'get'
+  })
+}
