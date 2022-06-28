@@ -147,6 +147,24 @@ export const constantRoutes = [
         component: () => import('@/views/application'),
         name: 'Nginx',
         meta: { title: 'Nginx', icon: 'nginx' }
+      },
+      {
+        path: 'nodejs',
+        component: () => import('@/views/application'),
+        name: 'NodeJS',
+        meta: { title: 'NodeJS', icon: 'nodejs' }
+      },
+      {
+        path: 'jdk',
+        component: () => import('@/views/application'),
+        name: 'JDK',
+        meta: { title: 'JDK', icon: 'jdk' }
+      },
+      {
+        path: 'python',
+        component: () => import('@/views/application'),
+        name: 'Python',
+        meta: { title: 'Python', icon: 'python' }
       }
     ]
   },

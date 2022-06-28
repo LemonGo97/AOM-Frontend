@@ -86,7 +86,9 @@ export default {
   inject: ['reload'],
   data() {
     return {
-      info: {},
+      info: {
+        icon: ''
+      },
       tableData: [],
       total: 0,
       popWindowVisible: false,
