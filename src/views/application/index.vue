@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <div class="jumbotron">
-      <h1><svg-icon :icon-class="info.icon" />&nbsp;&nbsp;{{ currentDB }}</h1>
+      <h1><svg-icon :icon-class="currentDB.toLowerCase()" />&nbsp;&nbsp;{{ currentDB }}</h1>
       <p>{{ info.description }}</p>
       <p v-if="info.downloadUrl">下载地址：<a :href="info.downloadUrl" target="_blank">{{ info.downloadUrl }}</a></p>
     </div>
